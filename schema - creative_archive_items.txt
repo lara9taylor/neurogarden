@@ -1,0 +1,8 @@
+CREATE TABLE creative_archive_items (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  content TEXT NOT NULL,
+  tags TEXT[],
+  mood TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);

@@ -1,0 +1,18 @@
+import usePauseTrigger from './hooks/usePauseTrigger';
+import CountdownModal from './components/CountdownModal';
+
+const App = () => {
+  const { showPauseModal, acknowledgePause } = usePauseTrigger({ intervalMinutes: 90 });
+
+  return (
+    <>
+      {/* Other app UI here */}
+      <CountdownModal
+        isVisible={showPauseModal}
+        duration={300}
+        onComplete={acknowledgePause}
+        onCancel={acknowledgePause}
+      />
+    </>
+  );
+};

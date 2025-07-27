@@ -1,0 +1,7 @@
+CREATE TABLE burnout_flags (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  pattern_detected TEXT,
+  mood_entry_id UUID REFERENCES mood_entries(id),
+  triggered_at TIMESTAMP DEFAULT now()
+);

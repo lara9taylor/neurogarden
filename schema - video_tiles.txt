@@ -1,0 +1,7 @@
+CREATE TABLE video_tiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tile_id UUID REFERENCES tiles(id) ON DELETE CASCADE,
+  file_url TEXT,
+  caption TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);

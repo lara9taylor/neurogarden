@@ -1,0 +1,7 @@
+CREATE TABLE task_bank (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  category TEXT, -- e.g. 'low effort', 'mood-lift', 'grounding'
+  text TEXT,
+  spark_chain BOOLEAN DEFAULT FALSE,
+  tags TEXT[]
+);

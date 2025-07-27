@@ -1,0 +1,8 @@
+CREATE TABLE voice_memos (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+  board_id UUID REFERENCES boards(id),
+  file_url TEXT,
+  transcript TEXT,
+  created_at TIMESTAMP DEFAULT now()
+);

@@ -1,0 +1,12 @@
+CREATE TABLE tiles (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  board_id UUID REFERENCES boards(id) ON DELETE CASCADE,
+  title TEXT,
+  content_type TEXT, -- 'pdf', 'link', 'video', 'image', etc.
+  content_url TEXT,
+  preview_image TEXT,
+  tags TEXT[],
+  position INTEGER, -- for ordering
+  mood_tag TEXT, -- 'overwhelming', 'low energy', etc.
+  created_at TIMESTAMP DEFAULT now()
+);

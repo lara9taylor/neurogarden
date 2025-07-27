@@ -1,0 +1,17 @@
+Wireframe Today’s Wins + Live Tile View
+
+Define Board/Tile database schema
+
+Create mood-task logic tree + sample task bank
+
+Build MVP in Bolt or Notion for testing with original user
+
+Add accessibility, privacy, and voice/multimodal input tracking
+
+Design export/share flows for therapists or peers
+
+Add integration plan (Google Calendar, Zotero, email)
+
+Implement import tools for Padlet compatibility
+
+Test with original user, then 3-5 beta users for feedback loop

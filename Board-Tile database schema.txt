@@ -1,0 +1,87 @@
+Here is a clean **Board/Tile database schema** for *NeuroGarden*, designed to support scalability, integration, and neurodivergent-friendly logic flows:
+
+---
+
+### 🗂️ **Boards Table**
+
+| Field Name            | Type      | Description                                         |
+| --------------------- | --------- | --------------------------------------------------- |
+| `id`                  | UUID      | Primary key                                         |
+| `user_id`             | UUID      | Foreign key to user profile                         |
+| `title`               | Text      | Board title (e.g., "Dissertation", "Wellness")      |
+| `description`         | Text      | Optional summary or purpose                         |
+| `color_theme`         | Text      | Custom or preset theme name (e.g., Lavender Garden) |
+| `mood_tag`            | Text      | Optional: Mood label associated with board          |
+| `created_at`          | Timestamp | Date board was created                              |
+| `updated_at`          | Timestamp | Last modified                                       |
+| `is_shared`           | Boolean   | Indicates if board is public or private             |
+| `import_source`       | Text      | e.g., 'Padlet', 'CSV', 'Manual'                     |
+| `spark_chain_enabled` | Boolean   | Whether spark logic is active for this board        |
+
+---
+
+### 🧱 **Tiles Table**
+
+| Field Name          | Type        | Description                                                               |
+| ------------------- | ----------- | ------------------------------------------------------------------------- |
+| `id`                | UUID        | Primary key                                                               |
+| `board_id`          | UUID        | Foreign key to Boards table                                               |
+| `type`              | Enum        | `'article'`, `'pdf'`, `'video'`, `'image'`, `'memo'`, `'task'`, `'quote'` |
+| `title`             | Text        | Title of tile content                                                     |
+| `preview_image_url` | Text (URL)  | For image preview / article thumbnail                                     |
+| `content_url`       | Text (URL)  | External link or internal media file                                      |
+| `annotation_json`   | JSON        | Embedded annotations (PDF.js, Hypothes.is)                                |
+| `summary`           | Text        | AI-generated or user-written summary                                      |
+| `tags`              | Array<Text> | Topic tags (e.g., "Executive Function", "Wellness")                       |
+| `mood_context`      | Text        | Mood when added (from mood tracker)                                       |
+| `created_at`        | Timestamp   | Date tile was added                                                       |
+| `updated_at`        | Timestamp   | Last modified                                                             |
+| `position_index`    | Integer     | For drag-and-drop sorting on board                                        |
+| `is_favorite`       | Boolean     | Starred by user                                                           |
+| `visibility`        | Enum        | `'private'`, `'shared'`, `'read-only'`                                    |
+| `source_type`       | Enum        | `'manual'`, `'imported'`, `'ai-suggested'`                                |
+
+---
+
+### 📌 **Voice Memos / Video Responses Table** (Linked via `tile_id`)
+
+| Field Name        | Type      | Description                  |
+| ----------------- | --------- | ---------------------------- |
+| `id`              | UUID      | Primary key                  |
+| `tile_id`         | UUID      | Linked tile                  |
+| `media_type`      | Enum      | `'voice'`, `'video'`         |
+| `media_url`       | Text      | Storage URL                  |
+| `transcript_text` | Text      | Auto-transcribed voice/video |
+| `timestamp`       | Timestamp | When recorded                |
+
+---
+
+### 🧠 **Mood + Interaction Table** (for insights and nudges)
+
+| Field Name           | Type            | Description                                         |
+| -------------------- | --------------- | --------------------------------------------------- |
+| `id`                 | UUID            | Primary key                                         |
+| `user_id`            | UUID            | Foreign key to user                                 |
+| `mood_value`         | Enum            | `'energized'`, `'calm'`, `'anxious'`, `'low'`, etc. |
+| `date_recorded`      | Date            | Check-in date                                       |
+| `associated_task_id` | UUID (nullable) | If tied to a task                                   |
+| `burnout_flag`       | Boolean         | Set via mood+task pattern                           |
+| `note_text`          | Text            | Reflection, journal response, or spark              |
+| `encryption_key`     | Text            | For E2E encryption key if applicable                |
+
+---
+
+### 🔁 **Smart Nudge Logic Table** *(AI-generated suggestions)*
+
+| Field Name          | Type      | Description                                      |
+| ------------------- | --------- | ------------------------------------------------ |
+| `id`                | UUID      | Primary key                                      |
+| `user_id`           | UUID      | Owner                                            |
+| `trigger_condition` | Text      | E.g., "low mood + no tasks completed in 2 days"  |
+| `suggested_action`  | Text      | E.g., "try a 5-minute Win or check Today’s Wins" |
+| `created_at`        | Timestamp | When created                                     |
+| `acted_on`          | Boolean   | Was this suggestion followed?                    |
+
+---
+
+Would you like me to generate this as a schema diagram or SQL/Prisma schema next?

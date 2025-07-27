@@ -1,0 +1,8 @@
+CREATE TABLE annotations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  tile_id UUID REFERENCES tiles(id) ON DELETE CASCADE,
+  annotation_type TEXT, -- 'highlight', 'note', 'draw'
+  text TEXT,
+  coordinates JSONB, -- For positioning annotations
+  created_at TIMESTAMP DEFAULT now()
+);
